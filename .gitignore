@@ -22,5 +22,9 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-#custom webstorm files
+# lock files
+package-lock.json
+yarn.lock
+
+# custom webstorm files
 .idea/
