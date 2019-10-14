@@ -1,0 +1,12 @@
+.header-menu {
+    background: #56aeba !important;
+    width: 100%;
+    height: 100%;
+}
+.ui .menu .item {
+    color: white !important;
+}
+.item {
+    color: white !important;
+    font-weight: bold !important;
+}
