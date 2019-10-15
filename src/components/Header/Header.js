@@ -1,12 +1,18 @@
 import React, { Component } from 'react';
-import {Dropdown, Icon, Image, Input, Item, Menu} from "semantic-ui-react";
+import {Dropdown, Icon, Image, Input, Menu, Sticky} from "semantic-ui-react";
 import './Header.css';
+import {Link} from "react-router-dom";
 
 export default class Header extends Component {
 
     state = {
-        activeItem: 'home',
+        context: null,
+        activeItem: '',
         language: 'UA',
+    };
+
+    handleContextRef = ref => {
+        this.setState({ context: ref });
     };
 
     handleItemClick = (e, { name }) => this.setState({ activeItem: name });
@@ -17,7 +23,7 @@ export default class Header extends Component {
         const { activeItem } = this.state;
 
         const noAuthLinks = (
-            <Menu secondary borderless={true} style={{textColor: 'white'}} attached={'top'} className='header header-menu'>
+            <Menu secondary borderless={true} style={{textColor: 'white'}} attached={'top'} className='header header-menu' ref={this.handleContextRef}>
                 <Menu.Menu position='right'>
                     <Menu.Item
                         name='signin'
@@ -40,52 +46,22 @@ export default class Header extends Component {
 
         const authLinks = (
                     <Menu secondary borderless={true} style={{textColor: 'white'}} attached={'top'} className='header header-menu'>
-                        {/*<Menu.Item>*/}
-                        {/*    /!*<Item>*!/*/}
-                        {/*        <img src='/images/logo.png' style={{height: '30px', width: '30px'}} />*/}
-                        {/*    /!*</Item>*!/*/}
-                        {/*</Menu.Item>    */}
                         <Menu.Item
-                            name='bookshelf'
-                            active={activeItem === 'bookshelf'}
-                            onClick={this.handleItemClick}
+                            name='profile'
+                            as={Link}
+                            to='/users/profile'
                         >
-                            <Icon name={'book'} /> My Bookshelf
+                            <Image src='/images/avatar.png' avatar />
                         </Menu.Item>
                         <Menu.Item
-                            name='top'
-                            active={activeItem === 'top'}
-                            onClick={this.handleItemClick}
+                            name='home'
+                        disable
                         >
-                            <Icon name='list ol' />
-                            Top
-                        </Menu.Item>
-                        <Menu.Item
-                            name='recommendations'
-                            active={activeItem === 'recommendations'}
-                            onClick={this.handleItemClick}
-                        >
-                            <Icon name='thumbs up'/>
-                            Recommendations
+                            <h3>BookSpace</h3>
                         </Menu.Item>
                         <Menu.Menu position='right'>
                             <Menu.Item>
                                 <Input icon='search' placeholder='Search...' />
-                            </Menu.Item>
-                            <Menu.Item
-                                name='profile'
-                                active={activeItem === 'profile'}
-                                onClick={this.handleItemClick}
-                            >
-                                <Icon name='user' />
-                                Profile
-                            </Menu.Item>
-                            <Menu.Item
-                                name='logout'
-                                active={activeItem === 'logout'}
-                                onClick={this.handleItemClick}
-                            >
-                                <Icon name={'sign-out'} /> Logout
                             </Menu.Item>
                             <Menu.Item
                                 name='language'
@@ -103,8 +79,10 @@ export default class Header extends Component {
                     </Menu>
         );
         return (
-            <React.Fragment>
+            <React.Fragment ref={this.handleContextRef}>
+                <Sticky context={this.state.context}>
                 {authLinks}
+                </Sticky>
             </React.Fragment>
         )
     }
