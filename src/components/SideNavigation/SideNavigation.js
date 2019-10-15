@@ -11,6 +11,7 @@ export default class SideNavigation extends Component {
         const {activeItem} = this.state;
         return (
             <Menu  pointing secondary vertical style={{marginLeft: '3%', position: 'fixed', height: '100vh'}}>
+                <div style={{marginBottom: '15%'}} />
                 <Menu.Item
                     as={'h3'}
                     name='profile'
